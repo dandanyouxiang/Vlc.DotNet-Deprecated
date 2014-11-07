@@ -75,7 +75,7 @@ namespace Vlc.DotNet.Core
         {
             if (VlcContext.HandleManager.MediasListHandles.ContainsKey(this))
             {
-                for (int index = Count - 1; index > 0; index--)
+                for (int index = Count - 1; index >= 0; index--)
                 {
                     VlcContext.InteropManager.MediaListInterops.RemoveAt.Invoke(VlcContext.HandleManager.MediasListHandles[this], index);
                 }
