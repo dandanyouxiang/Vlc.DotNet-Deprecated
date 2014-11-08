@@ -201,6 +201,41 @@ namespace Vlc.DotNet.Forms
         }
         
         /// <summary>
+        /// Gets or sets chapter
+        /// </summary>
+        public int CurrentChapterIndex
+        {
+            get
+            {
+                if (VlcContext.InteropManager != null &&
+                    VlcContext.InteropManager.MediaPlayerInterops != null &&
+                    VlcContext.InteropManager.MediaPlayerInterops.GetChapter.IsAvailable &&
+                    VlcContext.HandleManager.MediaPlayerHandles != null &&
+                    VlcContext.HandleManager.MediaPlayerHandles.ContainsKey(this))
+                {
+                    return VlcContext.InteropManager.MediaPlayerInterops.GetChapter.Invoke(
+                        VlcContext.HandleManager.MediaPlayerHandles[this] +1);
+                }
+
+                return -1;
+            }
+
+            set
+            {
+                if (VlcContext.InteropManager != null &&
+                    VlcContext.InteropManager.MediaPlayerInterops != null &&
+                    VlcContext.InteropManager.MediaPlayerInterops.SetChapter.IsAvailable &&
+                    VlcContext.HandleManager.MediaPlayerHandles != null &&
+                    VlcContext.HandleManager.MediaPlayerHandles.ContainsKey(this))
+                {
+                    VlcContext.InteropManager.MediaPlayerInterops.SetChapter.Invoke(
+                        VlcContext.HandleManager.MediaPlayerHandles[this],
+                        value +1);
+                }
+            }
+        }
+        
+        /// <summary>
         /// Gets or sets the current position of the playing media.
         /// </summary>
         [Category(CommonStrings.VLC_DOTNET_PROPERTIES_CATEGORY)]
