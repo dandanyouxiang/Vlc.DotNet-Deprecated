@@ -155,7 +155,86 @@ namespace Vlc.DotNet.Forms
                 return false;
             }
         }
+        
+        /// <summary>
+        /// Gets a value indicating whether media is a video or not
+        /// </summary>
+        [Category(CommonStrings.VLC_DOTNET_PROPERTIES_CATEGORY)]
+        public bool IsVideo
+        {
+            get
+            {
+                if (VlcContext.InteropManager != null &&
+                    VlcContext.InteropManager.MediaPlayerInterops != null &&
+                    VlcContext.InteropManager.MediaPlayerInterops.HasVideoOut.IsAvailable &&
+                    VlcContext.HandleManager != null &&
+                    VlcContext.HandleManager.MediaPlayerHandles != null &&
+                    VlcContext.HandleManager.MediaPlayerHandles.ContainsKey(this))
+                {
+                    return VlcContext.InteropManager.MediaPlayerInterops.HasVideoOut.Invoke(VlcContext.HandleManager.MediaPlayerHandles[this]) != 0;
+                }
 
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Gets the number of chapters in media
+        /// </summary>
+        [Category(CommonStrings.VLC_DOTNET_PROPERTIES_CATEGORY)]
+        public int ChapterCount
+        {
+            get
+            {
+                if (VlcContext.InteropManager != null &&
+                    VlcContext.InteropManager.MediaPlayerInterops != null &&
+                    VlcContext.InteropManager.MediaPlayerInterops.GetChapterCount.IsAvailable &&
+                    VlcContext.HandleManager != null &&
+                    VlcContext.HandleManager.MediaPlayerHandles != null &&
+                    VlcContext.HandleManager.MediaPlayerHandles.ContainsKey(this))
+                {
+                    return VlcContext.InteropManager.MediaPlayerInterops.GetChapterCount.Invoke(VlcContext.HandleManager.MediaPlayerHandles[this]);
+                }
+
+                return 0;
+            }
+        }
+        
+        /// <summary>
+        /// Gets or sets chapter
+        /// </summary>
+        public int CurrentChapterIndex
+        {
+            get
+            {
+                if (VlcContext.InteropManager != null &&
+                    VlcContext.InteropManager.MediaPlayerInterops != null &&
+                    VlcContext.InteropManager.MediaPlayerInterops.GetChapter.IsAvailable &&
+                    VlcContext.HandleManager.MediaPlayerHandles != null &&
+                    VlcContext.HandleManager.MediaPlayerHandles.ContainsKey(this))
+                {
+                    return VlcContext.InteropManager.MediaPlayerInterops.GetChapter.Invoke(
+                        VlcContext.HandleManager.MediaPlayerHandles[this] +1);
+                }
+
+                return -1;
+            }
+
+            set
+            {
+                if (VlcContext.InteropManager != null &&
+                    VlcContext.InteropManager.MediaPlayerInterops != null &&
+                    VlcContext.InteropManager.MediaPlayerInterops.SetChapter.IsAvailable &&
+                    VlcContext.HandleManager.MediaPlayerHandles != null &&
+                    VlcContext.HandleManager.MediaPlayerHandles.ContainsKey(this))
+                {
+                    VlcContext.InteropManager.MediaPlayerInterops.SetChapter.Invoke(
+                        VlcContext.HandleManager.MediaPlayerHandles[this],
+                        value +1);
+                }
+            }
+        }
+        
         /// <summary>
         /// Gets or sets the current position of the playing media.
         /// </summary>
