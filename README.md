@@ -1,3 +1,6 @@
+# NEW VERSION AVAILABLE [HERE](https://github.com/ZeBobo5/Vlc.DotNet)
+
+
 VideoLan DotNet
 =========
 
@@ -15,7 +18,7 @@ You can see a full overview of VLC Media Player features over on the [VLC site] 
 Version
 ----
 
-# A new version is being developed (a total rework). Please be patient.
+# A new version is currently available [HERE] (https://github.com/ZeBobo5/Vlc.DotNet). It's currently a WIP. Support for this version has ceased. This project is now deprecated.
 
 N/A
 
